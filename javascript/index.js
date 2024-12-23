@@ -86,13 +86,10 @@ obtainInstruction('steak', 0)
 
 // Iteration 3 using async/await
 async function makeBroccoli() { 
-  document.querySelector("#broccoli").innerHTML += `<li>${await obtainInstruction('broccoli', 0)}</li>`;
-  document.querySelector("#broccoli").innerHTML += `<li>${await obtainInstruction('broccoli', 1)}</li>`;
-  document.querySelector("#broccoli").innerHTML += `<li>${await obtainInstruction('broccoli', 2)}</li>`;
-  document.querySelector("#broccoli").innerHTML += `<li>${await obtainInstruction('broccoli', 3)}</li>`;
-  document.querySelector("#broccoli").innerHTML += `<li>${await obtainInstruction('broccoli', 4)}</li>`;
-  document.querySelector("#broccoli").innerHTML += `<li>${await obtainInstruction('broccoli', 5)}</li>`;
-  document.querySelector("#broccoli").innerHTML += `<li>${await obtainInstruction('broccoli', 6)}</li>`;
+  for (let i = 0; i < broccoli.length; i++) {
+    document.querySelector("#broccoli").innerHTML += `<li>${await obtainInstruction('broccoli', i)}</li>`;
+  }
+
   document.querySelector("#broccoli").innerHTML += `<li>Broccoli is ready!</li>`;
   document.querySelector("#broccoliImg").removeAttribute("hidden");
 }
@@ -101,16 +98,13 @@ makeBroccoli();
 
 // Bonus 2 - Promise all
 
-const step0 = obtainInstruction('brusselsSprouts', 0);
-const step1 = obtainInstruction('brusselsSprouts', 1);
-const step2 = obtainInstruction('brusselsSprouts', 2);
-const step3 = obtainInstruction('brusselsSprouts', 3);
-const step4 = obtainInstruction('brusselsSprouts', 4);
-const step5 = obtainInstruction('brusselsSprouts', 5);
-const step6 = obtainInstruction('brusselsSprouts', 6);
-const step7 = obtainInstruction('brusselsSprouts', 7);
+const steps = [];
 
-Promise.all([step0, step1, step2, step3, step4, step5, step6, step7])
+for (let i = 0; i < brusselsSprouts.length; i++) {
+  steps.push(obtainInstruction('brusselsSprouts', i));
+}
+
+Promise.all(steps)
 .then((values) =>
 {
   for (let i = 0; i < values.length; i++) {
